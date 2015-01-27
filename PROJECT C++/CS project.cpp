@@ -1,4 +1,4 @@
-//BBS- CLASS 12th FINAL PROJECT
+//BBZ- CLASS 12th FINAL PROJECT
 #include<iostream.h>  // for standard input/output functions
 #include <string.h>   // for strlen
 #include <ctype.h>    // for isupper,islower,toupper,tolower
@@ -18,7 +18,7 @@ class Customer
 	  char fname[20];      //First Name
       char sname[20];       //Second Name
       char address[200];    //Address
-      char gender;
+      char gender;          //gender of the user
       int  age;            //Age
       char checkpassword[10];  //A Temp Variable for Checking the password entered by the user
       long double amount;        //Amount stored in the User's Bank Account
@@ -39,73 +39,107 @@ class Customer
         
       void getamount()     //To print the balance in the User's account and a quirky message;
       {
-        cout<<"Your Balance :";
+           cout<<endl;
+           cout<<endl;
+        cout<<"YOUR BALANCE :";
         cout<<amount;
+        cout<<endl;
+        cout<<endl;
         if(amount >= 100000)
          {             
-            cout<<endl;          
-            cout<<"You're a star. People could use some help from you! "<<endl;;
+            cout<<endl;        
+            cout<<std::setw(25)<<"\"You're a star. People could use some help from you!\"-BBZ "<<endl;;
             cout<<endl;
         }
         else if(amount >= 50000 && amount < 100000) 
         {            
             cout<<endl;          
-            cout<<"Great Going! Soon enough you'll have enough to buy a ferrai! "<<endl;;
+            cout<<std::setw(25)<<"\"Great Going! Soon enough you'll have enough to buy a ferrai!\"-BBZ   "<<endl;;
             cout<<endl;
         }
         else 
         {            
-            cout<<endl;          
-            cout<<"A Beginners guide to saving money : A great read! Only $2.99 on Amazon!  "<<endl;;
+            cout<<endl;        
+            cout<<std::setw(25)<<"\"A Beginners guide to saving money : A great read! Only $2.99 on Amazon!\"-BBZ  "<<endl;;
             cout<<endl;
         }
       }
+      
+      // An overloaded function just to print the Balance of the user.
       void getamount( int t)
       {
            cout<<amount;
+           cout<<endl; 
            }
     /*
     THE FOLLOWING FUNCTIONS INPUT THE PRIVATE VARIABLES OF THE CLASS CUSTOMER !
     */       
       void addfname()      
       {     
-           cout<<"First Name : ";
+           cout<<"FIRST NAME : ";
            cin>>fname; 
+           cout<<endl;
       }
       void addsname() 
       {     
-           cout<<"Second Name : ";
+           cout<<"SECOND NAME : ";
            cin>>sname;
+           cout<<endl;
       }
            
       void addage() 
-      { cout<<"Age : ";
-        cin>>age; 
+      { 
+           age1:
+           cout<<"AGE : ";
+           cin>>age;
+           if(age < 18 || age > 90)
+           {
+                  cout<<"Please Enter your Correct Age! "<<endl<<endl;
+                  goto age1;
+                  }
+           cout<<endl;
       }
         
       void addaddress()
-      {    cout<<"Address : ";\
-      cin.ignore();
+      {    
+           cout<<"YOUR ADDRESS : ";\
+           cin.ignore();
            cin.getline(address,'#'); 
+           cout<<endl;
       }
-      
+      void addaddress(int t)
+      {    
+           cout<<endl;
+           cout<<"ENTER YOUR NEW ADDRESS : ";\
+           cin.ignore();
+           cin.getline(address,'#'); 
+            cout<<endl;
+      }
       void addamount()
       {
-           cout<<"Add balance to your Account :";
+           cout<<"ADD BALANCE : ";
            cin>>amount;
-           }
+           cout<<endl;
+      }
       void addgender()
       {
            cout<<"SEX(M/F) : ";
            cin>>gender;
+           cout<<endl;
+           if(gender != 'M' && gender != 'F')
+           {
+                     cout<<endl;
+                     cout<<"Please use only M/F! "<<endl;
+                     cout<<endl;
            }
-           
+      }
       //This Function Sets the Password for the User
       void setpassword()
       {
-         cout<<endl<<endl<<"Size of Password (Maximum 10)"<<endl;
-         cout<<endl<<"Use only Letters! No Numbers. No Special Characters"<<endl;
-         cout<<"Enter your Password : ";
+         cout<<endl<<endl<<"SIZE OF PASSWORD (MAX - 10)"<<endl;
+         cout<<endl<<"ONLY LETTERS! NO NUMBERS OR SPECIAL CHARACTERS"<<endl;
+         cout<<endl;
+         cout<<"YOUR PASSWORD : ";
          for (int i=0;i <10;i++)
          {   
              int a;
@@ -113,7 +147,8 @@ class Customer
              if( a == '\r')
              {
                  cout<<endl<<endl;
-                 cout<<" Password Noted! ";
+                 cout<<" PASSWORD NOTED! ";
+                 cout<<endl;
                  cout<<endl;
                  break;
                  }
@@ -124,13 +159,7 @@ class Customer
                  } 
          }
       }
-      
-      
       //This Function Creates a Specialized USER-NAME for Each User!
-      //I HAVE MODIFIED THIS FUNCTION. WITH YOUR CODE, PEOPLE WITH SAME USERNAME COULDNT HAVE BEEN RECOGNIZED.
-      // SO I ADDED A NUMBER AT THE END OF IT. (THIS NUMBER IS THE NO OF THE ACCOUNT CREATED STARTING FROM 101
-      //THE PROBLEM IS ONCE THE PROGRAM EXITS IT AGAIN STARTS WITH 101 ...!
-      //--- PROBLEM---
       void accno()  
       {
          
@@ -140,7 +169,7 @@ class Customer
 	     
 		 strcat(accname,noofacc_string);    
                              
-         cout<<" Your Account Name is : ";
+         cout<<" YOUR ACCOUNT NAME IS : ";
 		 cout<<accname;
 		 
          strcpy(filename,strcat(accname,".dat"));
@@ -154,7 +183,6 @@ class Customer
          char x1;
          cin>>x1;
       }
-       
      void keep_number()
      {
           ofstream fout;
@@ -168,25 +196,36 @@ class Customer
           fin.open("Number_of_Accounts.txt");
           fin>>noofacc;
           }
+     void welcome_heading(int t)
+     {
+          system("CLS"); 
+          cout<<std::setw(63)<<"BBS- Bhuttle Banking Service(BETA VERSION)"<<endl;
+          cout<<"--------------------------------------------------------------------------------";
+          }
+     void welcome_heading(int t, int p)
+     {
+          system("CLS"); 
+           cout<<std::setw(45)<<"WELCOME TO BBS"<<endl;
+           cout<<"--------------------------------------------------------------------------------";
+          }
 
       //THIS IS THE MAIN FUNCTION FOR CREATING AN ACCOUNT! IT CALLS OTHER PRIMARY FUNCTIONS!
       void addaccount()
       {
-           system("CLS");
-           read_number();
-           cout<<std::setw(45)<<"WELCOME TO BBS"<<endl;
-           cout<<"--------------------------------------------------------------------------------";
-           addfname();
-           addsname();
-           addage();
-           addgender();
-           addaddress();
-           addamount();
-           setpassword();     
-           accno(); 
-           keep_number();
+           read_number();                       //This keeps a track of the number of accounts in the bank!
+           welcome_heading(2,3);                // This gives the introductory page of the Bank!
+           addfname();                          // Accepts the First Name
+           addsname();                          // Accepts the Second Name
+           addage();                            // Accepts the Age 
+           addgender();                         // Accepts the gender 
+           addaddress();                        // Accepts their address
+           addamount();                         // Accepts the Balance
+           setpassword();                       // Sets the password for the user
+           accno();                             // Creates a unique account name for the user
+           keep_number();                       //This keeps a track of the number of accounts in the bank!
       }
       
+      //
       void updateaccount()
       { 
         Customer newcus;
@@ -226,6 +265,7 @@ class Customer
                newcus.displaymenu_for_myaccount();
       }
 
+     //Function for a Loading animation
      void waiting(long double amt)
      {
           cout<<endl;
@@ -238,6 +278,9 @@ class Customer
           no_of_cycles=4;
           else
           no_of_cycles=3;
+          
+          cout<<"Transaction in Progress";
+          
           for(cursor=0;cursor<no_of_cycles;cursor++)
              {
                    cout<<".";
@@ -249,10 +292,8 @@ class Customer
 
      void addbalance()
      {
-       system("CLS"); 
        long double amount_added;
-       cout<<std::setw(45)<<"BBS- Bhuttle Banking Service (BETA VERSION)"<<endl;
-       cout<<"--------------------------------------------------------------------------------";
+       welcome_heading(5);
        welcome_statement();
        getamount();
        cout<<endl;
@@ -262,6 +303,10 @@ class Customer
        cout<<endl;
        cout<<endl;
        amount=amount+amount_added;
+       Customer newcus;
+       ofstream bhuttle;
+       bhuttle.write((char *)&newcus,sizeof(newcus));
+       bhuttle.close();
        cout<<" TRANSACTION SUCCESSFULL ! ";
        cout<<endl;
        cout<<endl;
@@ -272,10 +317,8 @@ class Customer
           
      void removebalance()
      {
-       system("CLS");
        long double amount_withdraw;
-       cout<<std::setw(45)<<"BBS- Bhuttle Banking Service (BETA VERSION)"<<endl;
-       cout<<"--------------------------------------------------------------------------------";
+       welcome_heading(5);
        welcome_statement();
        getamount();
        cout<<endl;
@@ -285,6 +328,10 @@ class Customer
        cout<<endl;
        cout<<endl;
        amount=amount-amount_withdraw;
+       Customer newcus;
+       ofstream bhuttle;
+       bhuttle.write((char *)&newcus,sizeof(newcus));
+       bhuttle.close();
        cout<<" TRANSACTION SUCCESSFULL ! ";
        cout<<endl;
        cout<<endl;
@@ -292,201 +339,179 @@ class Customer
        getamount(5);
         }
         
-     void transfermoney()
+     //This function is used to update the details of the customers account eg: Address
+       void updatedetails()
      {
        system("CLS"); 
-       long double amount_transfer;
-       char accno_tranfermoney[100],file_accno_tranfermoney[100];
+       char change_address[300];
+       int one;
        cout<<std::setw(65)<<"BBS- Bhuttle Banking Service (BETA VERSION)"<<endl;
        cout<<"--------------------------------------------------------------------------------";
        welcome_statement();
        cout<<endl;
-       cout<<" AMOUNT TO BE TRANSFERRED: ";
-       cin>>amount_transfer;
-       x:;
-       cout<<" TO ACCOUNT (ONLY INTERNAL TRANSFERS POSSIBLE): ";
-       cin>>accno_transfermoney;
-       fstream bhuttle;
-       strcpy(file_accno_tranfermoney,strcat(accno_tranfermoney,".dat"));
-       bhuttle.open(file_accno_tranfermoney,ios::binary|ios::out);
-
-        if (!bhuttle.is_open())
-        {
-		   perror("Error while opening file ");
-		   cout<<endl;
-		   cout<<endl;
-           cout<<"Please check the username you have entered!";
-           cout<<"\n\nPress any key to continue !";
-           char x1;
-           cin>>x1;
-           goto x;
-        }
-       waiting(amount_transfer);
+       cout<<endl;
+       cout<<std::setw(10)<<"1.CHANGE ADDRESS"<<endl;
        cout<<endl;
        cout<<endl;
-       
-       cout<<" TRANSACTION SUCCESSFULL ! ";
+       cout<<"PRESS 1 TO CHANGE YOUR ADDRESS..."<<endl;
+       cout<<"PRESS 0 FOR MAIN MENU..."<<endl;
        cout<<endl;
        cout<<endl;
-       cout<<" YOUR CURRENT BALANCE IS : ";
-       getamount(5);
-       
-       
-          }
-     void updatedetails()
-     {
-       system("CLS"); 
-       cout<<std::setw(65)<<"BBS- Bhuttle Banking Service (BETA VERSION)"<<endl;
-       cout<<"--------------------------------------------------------------------------------";
-       welcome_statement();
-       cout<<std::setw(10)<<"1.CHANGE FIRST-NAME"<<endl<<"2.CHANGE SECOND-NAME"<<endl<<"3.CHANGE AGE"<<endl<<"4.CHANGE ADDRESS"<<endl;
-       cin>>var;
-       switch(var)
+       cin>>one;
+       if(one == 1)
        {
-               case 1:{
-                       
-                          break;
-                     }
-               case 2:{  
-                         
-                       break;
-                       }
-               case 3:{ 
-                      
-                      break;
-                      }
-              case 4:{ 
-                      
-                      break;
-                      }
-               default : "Please enter a number according to the choices ";
-                 break;
-    }
-       
-          }
-      
+              Customer newcus;
+              ofstream bhuttle;
+              addaddress(3);
+              bhuttle.write((char *)&newcus,sizeof(newcus));
+              bhuttle.close();
+              cout<<endl;
+              cout<<endl;
+              cout<<"YOUR ADDRESS HAS BEEN SUCCESSFULLY CHANGED! ";
+              cout<<endl;
+              
+              cout<<"\n\nPress any key to continue !";
+              char x2;
+              cin>>x2;
+              displaymenu_for_myaccount(); 
+              
+              }
+       else
+       {
+               displaymenu_for_myaccount();   //Taking the user back to the main menu 
 
-     void deleteaccount()
+          }
+      }
+
+     void closeaccount()
      {
            welcome_heading(5);
+           //Customer newcus;
            cout<<endl;
            cout<<endl;
-           cout<<endl;
-           cout<<std::setw(45)<<"Dear Mr ";
-           getfname()<<" ,";
-           cout<<endl;
-           cout<<"Bhuttle Banking Service shall miss you !" <<endl;
-           cout<<std::setw(45)<<"____________________________________"<<endl;
-           cout<<endl;
-           cout<<endl;
-           cout<<endl;
-           cout<<endl;
-           cout<<std::setw(45)<<"ACCOUNT WITH USERNAME : "<<accname<<" DELETED !" <<endl;
-           cout<<std::setw(45)<<"______________________________________________________"<<endl;
+           cout<<" ENTER YOUR USERNAME : ";
+           cin>>checkusername;
+           strcpy(checkfilename,strcat(checkusername,".dat"));
            
-
+           if( remove(checkfilename) != 0 )
+           {
+               cout<<endl;
+               cout<<endl;
+           perror(" ERROR DELETING FILE !" );
+           }
+           else
+           puts(" ACCOUNT DELETED !");
+           
+           welcome_statement(5);
+           cout<<"BHUTTLE BANKING SERVICE SHALL MISS YOU !"<<endl;
+           cout<<endl;
           }
     //THIS IS A FUNCTION WHICH DISPLAYS THE MENU SCREEN WHEN USER OPTS TO MODIFY DATA. THIS VALIDATES IF THE USER HAS A ACCOUNT 
     void displaymenu_for_entering_myaccount()
     {
     	   welcome_heading(3,5);
            cout<<"You Have Chosen To Update Your Account Details :- ";
-           cout<<endl<<endl<<"Please Enter Your UserName : ";
            cout<<endl;
            cout<<endl;
            cout<<"NOTE: PLEASE ENTER THE USERNAME EXACTLY AS GIVEN TO YOU AT THE TIME OF          REGISTRATION!!";
            cout<<endl;
-     
+           cout<<endl;
+           cout<<" PLEASE ENTER YOUR USERNAME : ";     
 	}
 	
 	void welcome_statement()
 	{
-    Customer newcus;
     cout<<endl;
     cout<<endl;
-    cout<<"WELCOME ";
-    if(strcmp(gender,"M"))
-    cout<<" Mr ";
+    cout<<" WELCOME ";
+    if(gender == 'M')
+    cout<<" MR ";
     else 
-    cout<<"Mrs ";
-    getfname();
+    cout<<" MRS ";
+    fname[20] = toupper(fname[20]);
+    cout<<fname;
     cout<<" ";
-    getsname();
-    cout<<" ,";
-    cout<<endl;
-    cout<<endl;
-    
+    sname[20]=toupper(sname[20]);
+    cout<<sname;
+    cout<<",";
+    cout<<endl;    
      }
      
-     void welcome_heading(int t)
-     {
-          system("CLS"); 
-          cout<<std::setw(50)<<"BBS- Bhuttle Banking Service"<<endl;
-          cout<<"--------------------------------------------------------------------------------";
-          }
-     
-     void welcome_heading(int t, int p)
-     {
-          system("CLS"); 
-           cout<<std::setw(45)<<"WELCOME TO BBS"<<endl;
-           cout<<"--------------------------------------------------------------------------------";
-          }
-	
+    void welcome_statement(int t)
+	{
+    cout<<endl;
+    if(gender == 'M')
+    cout<<" MR ";
+    else 
+    cout<<" MRS ";
+    fname[20] = toupper(fname[20]);
+    cout<<fname;
+    cout<<" ";
+    sname[20]=toupper(sname[20]);
+    cout<<sname;
+    cout<<",";
+    cout<<endl;    
+     }	
 	//I'm not reaching here but if user passes the checks. This menu will be displayed
 	//I shall edit these values using seekp and seekg once this point is reached!
 	void displaymenu_for_myaccount()     
     {
-    system("CLS"); 
-    int var,i;
-    cout<<std::setw(50)<<"BBS- Bhuttle Banking Service"<<endl;
-    cout<<"--------------------------------------------------------------------------------";
+    int var2;
+    welcome_heading(3);
     welcome_statement();
-    cout<<std::setw(10)<<"1.ADD BALANCE"<<endl<<"2.REMOVE BALANCE"<<endl<<"3.TRANSFER MONEY"<<endl<<"4.UPDATE ACCOUNT DETAILS"<<endl;
-    cin>>var;
-    switch(var)
+    cout<<endl;
+    cout<<std::setw(10)<<"1.ADD BALANCE"<<endl<<"2.WITHDRAW BALANCE"<<endl<<"3.UPDATE ACCOUNT DETAILS"<<endl<<"4.PRESS 0 TO BACK TO THE MAIN MENU"<<endl;
+    cout<<endl;
+    cout<<"OPTION NO : ";
+    cin>>var2;
+    switch(var2)
     {
                case 1:{
-                         Customer newcus;
-                         newcus.addbalance();
-                       
-                    
-                     break;
+                         addbalance();
+                         break;
                      }
                case 2:{  
-                         Customer newcus;
-                         newcus.removebalance();
-                         
-                       break;
+                        removebalance(); 
+                        break;
                        }
-               case 3:{ 
-                         Customer newcus;
-                         newcus.transfermoney();
-                      
-                      break;
+              case 3:{ 
+                        updatedetails();
+                        break;
                       }
-              case 4:{ 
-                         Customer newcus;
-                         newcus.updatedetails();
-                      
-                      break;
-                      }
-               default : "Please enter a number according to the choices ";
-                 break;
+              case  4:{
+                        displaymenu();
+                        break;
+                    }
+                    
+               default :{
+                         cout<<"PLEASE ENTER A NUMBER ACCORDING TO THE CHOICES"<<endl<<endl;
+                         break;
+                       }
     }
-    cin>>i;
+    cout<<endl;
+    cout<<endl;
 }
               	
     //THIS IS A FUNCTION WHICH DISPLAYS THE MENU SCREEN
     void displaymenu()
     {
-    system("CLS"); 
-    int var,i;
-    cout<<std::setw(65)<<"BBS- Bhuttle Banking Service (BETA VERSION)"<<endl;
-    cout<<"--------------------------------------------------------------------------------";
+    int var;
+    welcome_heading(3);
+    cout<<endl;
+    cout<<endl;
+    cout<<"\"EVERY GREAT BUSINESS IS BUILT ON FRIENDSHIP\" - JC PENNEY";
     cout<<endl;
     cout<<endl;
     cout<<std::setw(10)<<"1.ADD NEW ACCOUNT"<<endl<<"2.GO TO MY ACCOUNT"<<endl<<"3.CLOSE ACCOUNT"<<endl;
+    cout<<endl;
+    y:
+    cout<<"OPTION NO : ";
     cin>>var;
+    if (var != 1 && var != 2 && var != 3 )
+    {
+            cout<<"PLEASE ENTER A CORRECT OPTION !"<<endl<<endl;
+            goto y;
+            }
     switch(var)
     {
                case 1:{
@@ -499,26 +524,23 @@ class Customer
                         bhuttle.write((char *)&newcus,sizeof(newcus));
                         bhuttle.close();
                         displaymenu();
-                     
-                     break;
+                        break;
                      }
-               case 2:{ 
-                         Customer newcus;
-                         fstream bhuttle;
-                         newcus.updateaccount();
-                         
-                       break;
+               case 2: { 
+                         updateaccount();
+                         break;
                        }
                case 3:{ 
-                      Customer newcus;
-                      newcus.deleteaccount();
-                      break;
+                         closeaccount();
+                         break;
                       }
-               default : "Please enter a number according to the choices ";
-                 break;
-    }
-    cin>>i;
-}
+               default :{
+                         cout<<"PLEASE ENTER A NUMBER ACCORDING TO THE CHOICES"<<endl<<endl;
+                         break;
+                       }
+          }
+        
+   }
               
 }; //CLASS DECLARATION END
 
@@ -532,6 +554,4 @@ int main()
      
 cin>>idk;
 return 0;
-
-
 }
