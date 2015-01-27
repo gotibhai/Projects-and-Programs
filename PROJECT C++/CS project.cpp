@@ -41,7 +41,7 @@ class Customer
       {
            cout<<endl;
            cout<<endl;
-        cout<<"YOUR BALANCE :";
+        cout<<"YOUR BALANCE : ";
         cout<<amount;
         cout<<endl;
         cout<<endl;
