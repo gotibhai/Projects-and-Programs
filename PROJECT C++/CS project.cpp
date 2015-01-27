@@ -94,7 +94,7 @@ class Customer
            cin>>age;
            if(age < 18 || age > 90)
            {
-                  cout<<"Please Enter your Correct Age! "<<endl<<endl;
+                  cout<<"Please Enter your Correct Age! Minors shall not be permitted access!"<<endl<<endl;
                   goto age1;
                   }
            cout<<endl;
@@ -123,42 +123,20 @@ class Customer
       }
       void addgender()
       {
+           c:
            cout<<"SEX(M/F) : ";
            cin>>gender;
            cout<<endl;
-           if(gender != 'M' && gender != 'F')
+           if(gender != 'M' && gender != 'F' && gender != 'm' && gender != 'f')
            {
                      cout<<endl;
-                     cout<<"Please use only M/F! "<<endl;
+                     cout<<"Please use only M/F! "<<endl<<endl;;
                      cout<<endl;
+                     goto c;
            }
       }
       //This Function Sets the Password for the User
-      void setpassword()
-      {
-         cout<<endl<<endl<<"SIZE OF PASSWORD (MAX - 10)"<<endl;
-         cout<<endl<<"ONLY LETTERS! NO NUMBERS OR SPECIAL CHARACTERS"<<endl;
-         cout<<endl;
-         cout<<"YOUR PASSWORD : ";
-         for (int i=0;i <10;i++)
-         {   
-             int a;
-             a=getch();
-             if( a == '\r')
-             {
-                 cout<<endl<<endl;
-                 cout<<" PASSWORD NOTED! ";
-                 cout<<endl;
-                 cout<<endl;
-                 break;
-                 }
-              else 
-              {
-                   password[i]=a;   
-                 cout<<"*";  
-                 } 
-         }
-      }
+      void setpassword();
       //This Function Creates a Specialized USER-NAME for Each User!
       void accno()  
       {
@@ -169,7 +147,7 @@ class Customer
 	     
 		 strcat(accname,noofacc_string);    
                              
-         cout<<" YOUR ACCOUNT NAME IS : ";
+         cout<<std::setw(30)<<" YOUR ACCOUNT NAME IS : ";
 		 cout<<accname;
 		 
          strcpy(filename,strcat(accname,".dat"));
@@ -181,7 +159,7 @@ class Customer
 		 noofacc++;
          cout<<"\n\nPress any key to continue !";
          char x1;
-         cin>>x1;
+         x1=getch();
       }
      void keep_number()
      {
@@ -196,6 +174,7 @@ class Customer
           fin.open("Number_of_Accounts.txt");
           fin>>noofacc;
           }
+     //overloading of functions to output different types of welcome messages
      void welcome_heading(int t)
      {
           system("CLS"); 
@@ -225,7 +204,7 @@ class Customer
            keep_number();                       //This keeps a track of the number of accounts in the bank!
       }
       
-      //
+      //Function to update the values of the users account 
       void updateaccount()
       { 
         Customer newcus;
@@ -247,7 +226,7 @@ class Customer
            newcus.updateaccount();
         }
         bhuttle.read((char *)&newcus,sizeof(newcus));
-        cout<<endl<<endl<<" Please Enter Your Password : ";
+        cout<<endl<<endl<<"PLEASE ENTER YOUR PASSWORD : ";
          cin>>newcus.checkpassword;
        
           if (strcmp(newcus.password,newcus.checkpassword) != 0)
@@ -289,7 +268,8 @@ class Customer
               }    
                  cout<<endl;                   
      } 
-
+     
+     //Function for adding balance to the users account!
      void addbalance()
      {
        long double amount_added;
@@ -314,7 +294,7 @@ class Customer
        getamount(5);
 
           }
-          
+     //Function to remove balance to the users account!     
      void removebalance()
      {
        long double amount_withdraw;
@@ -342,19 +322,17 @@ class Customer
      //This function is used to update the details of the customers account eg: Address
        void updatedetails()
      {
-       system("CLS"); 
        char change_address[300];
        int one;
-       cout<<std::setw(65)<<"BBS- Bhuttle Banking Service (BETA VERSION)"<<endl;
-       cout<<"--------------------------------------------------------------------------------";
+       welcome_heading(4);
        welcome_statement();
        cout<<endl;
        cout<<endl;
-       cout<<std::setw(10)<<"1.CHANGE ADDRESS"<<endl;
+       cout<<std::setw(10)<<" 1.CHANGE ADDRESS"<<endl;
        cout<<endl;
        cout<<endl;
-       cout<<"PRESS 1 TO CHANGE YOUR ADDRESS..."<<endl;
-       cout<<"PRESS 0 FOR MAIN MENU..."<<endl;
+       cout<<" PRESS 1 TO CHANGE YOUR ADDRESS..."<<endl<<endl;;
+       cout<<" PRESS 0 FOR MAIN MENU..."<<endl;
        cout<<endl;
        cout<<endl;
        cin>>one;
@@ -367,12 +345,12 @@ class Customer
               bhuttle.close();
               cout<<endl;
               cout<<endl;
-              cout<<"YOUR ADDRESS HAS BEEN SUCCESSFULLY CHANGED! ";
+              cout<<" YOUR ADDRESS HAS BEEN SUCCESSFULLY CHANGED! ";
               cout<<endl;
               
               cout<<"\n\nPress any key to continue !";
               char x2;
-              cin>>x2;
+              x2=getch();
               displaymenu_for_myaccount(); 
               
               }
@@ -382,7 +360,8 @@ class Customer
 
           }
       }
-
+     
+     //Function call to delete the users account!
      void closeaccount()
      {
            welcome_heading(5);
@@ -406,6 +385,7 @@ class Customer
            cout<<"BHUTTLE BANKING SERVICE SHALL MISS YOU !"<<endl;
            cout<<endl;
           }
+          
     //THIS IS A FUNCTION WHICH DISPLAYS THE MENU SCREEN WHEN USER OPTS TO MODIFY DATA. THIS VALIDATES IF THE USER HAS A ACCOUNT 
     void displaymenu_for_entering_myaccount()
     {
@@ -416,18 +396,18 @@ class Customer
            cout<<"NOTE: PLEASE ENTER THE USERNAME EXACTLY AS GIVEN TO YOU AT THE TIME OF          REGISTRATION!!";
            cout<<endl;
            cout<<endl;
-           cout<<" PLEASE ENTER YOUR USERNAME : ";     
+           cout<<"PLEASE ENTER YOUR USERNAME : ";     
 	}
-	
+	//FUNCTION TO DISPLAY THE WELCOME MESSAGE FOR USERS WITH THEIR NAMES USING FUNCTION OVERLOADING!
 	void welcome_statement()
 	{
     cout<<endl;
     cout<<endl;
-    cout<<" WELCOME ";
-    if(gender == 'M')
-    cout<<" MR ";
+    cout<<"WELCOME ";
+    if(gender == 'M' || gender == 'm')
+    cout<<"MR ";
     else 
-    cout<<" MRS ";
+    cout<<"MRS ";
     fname[20] = toupper(fname[20]);
     cout<<fname;
     cout<<" ";
@@ -440,10 +420,10 @@ class Customer
     void welcome_statement(int t)
 	{
     cout<<endl;
-    if(gender == 'M')
-    cout<<" MR ";
+    if(gender == 'M' || gender == 'm')
+    cout<<"MR ";
     else 
-    cout<<" MRS ";
+    cout<<"MRS ";
     fname[20] = toupper(fname[20]);
     cout<<fname;
     cout<<" ";
@@ -452,49 +432,45 @@ class Customer
     cout<<",";
     cout<<endl;    
      }	
-	//I'm not reaching here but if user passes the checks. This menu will be displayed
-	//I shall edit these values using seekp and seekg once this point is reached!
-	void displaymenu_for_myaccount()     
-    {
-    int var2;
-    welcome_heading(3);
-    welcome_statement();
-    cout<<endl;
-    cout<<std::setw(10)<<"1.ADD BALANCE"<<endl<<"2.WITHDRAW BALANCE"<<endl<<"3.UPDATE ACCOUNT DETAILS"<<endl<<"4.PRESS 0 TO BACK TO THE MAIN MENU"<<endl;
-    cout<<endl;
-    cout<<"OPTION NO : ";
-    cin>>var2;
-    switch(var2)
-    {
-               case 1:{
-                         addbalance();
-                         break;
-                     }
-               case 2:{  
-                        removebalance(); 
-                        break;
-                       }
-              case 3:{ 
-                        updatedetails();
-                        break;
-                      }
-              case  4:{
-                        displaymenu();
-                        break;
-                    }
-                    
-               default :{
-                         cout<<"PLEASE ENTER A NUMBER ACCORDING TO THE CHOICES"<<endl<<endl;
-                         break;
-                       }
-    }
-    cout<<endl;
-    cout<<endl;
-}
+	
+	//A FUNCTION TO DISPLAY MENU FOR MY ACCOUNT
+	void displaymenu_for_myaccount();   
+    
               	
     //THIS IS A FUNCTION WHICH DISPLAYS THE MENU SCREEN
-    void displaymenu()
-    {
+    void displaymenu();   
+           
+}; //CLASS DECLARATION END
+
+//outline definition of setpassword
+void Customer::setpassword()
+  {
+         cout<<endl<<"SIZE OF PASSWORD (MAX - 10)"<<endl;
+         cout<<endl<<"ONLY LETTERS! NO NUMBERS OR SPECIAL CHARACTERS"<<endl;
+         cout<<endl;
+         cout<<"YOUR PASSWORD : ";
+         for (int i=0;i <10;i++)
+         {   
+             int a;
+             a=getch();
+             if( a == '\r')
+             {
+                 cout<<endl<<endl;
+                 cout<<std::setw(30)<<" PASSWORD NOTED! ";
+                 cout<<endl;
+                 cout<<endl;
+                 break;
+                 }
+              else 
+              {
+                   password[i]=a;   
+                 cout<<"*";  
+                 } 
+         }
+      }
+  //Outline definition of displaymenu    
+  void Customer::displaymenu()
+  {
     int var;
     welcome_heading(3);
     cout<<endl;
@@ -541,8 +517,63 @@ class Customer
           }
         
    }
-              
-}; //CLASS DECLARATION END
+   //Outline definition of displaymenu_for_myaccount
+   void Customer::displaymenu_for_myaccount()
+   {
+    int var2;
+    welcome_heading(3);
+    welcome_statement();
+    cout<<endl;
+    cout<<std::setw(10)<<"1.ADD BALANCE"<<endl<<"2.WITHDRAW BALANCE"<<endl<<"3.UPDATE ACCOUNT DETAILS"<<endl<<"4.BACK TO THE MAIN MENU"<<endl;
+    cout<<endl;
+    cout<<"OPTION NO : ";
+    cin>>var2;
+    switch(var2)
+    {
+               case 1:{
+                         addbalance();
+                         break;
+                     }
+               case 2:{  
+                        removebalance(); 
+                        break;
+                       }
+              case 3:{ 
+                        updatedetails();
+                        break;
+                      }
+              case  4:{
+                        displaymenu();
+                        break;
+                    }
+                    
+               default :{
+                         cout<<"PLEASE ENTER A NUMBER ACCORDING TO THE CHOICES"<<endl<<endl;
+                         break;
+                       }
+    }
+    cout<<endl;
+    cout<<endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 int main()
 {
@@ -551,6 +582,8 @@ int main()
   Customer newcus;
   // CALLING THE DISPLAY MENU FUNCTION
   newcus.displaymenu();
+  
+  
      
 cin>>idk;
 return 0;
