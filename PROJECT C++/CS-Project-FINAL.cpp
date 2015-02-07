@@ -7,23 +7,23 @@
 #include <fstream.h>  // for file-handling
 #include <Windows.h>  //for using the sleep function
 
-
+//Global variable to keep count of the no of accounts
 int noofacc=101;
 //Declaration of the Class Customer
 class Customer
 {
       private:
       //All the private variables 
-      char password[15];   //Password set by the User
 	  char fname[20];      //First Name
       char sname[20];       //Second Name
       char address[200];    //Address
       char gender;          //gender of the user
       int  age;            //Age
-      char checkpassword[10];  //A Temp Variable for Checking the password entered by the user
       long double amount;        //Amount stored in the User's Bank Account
       
       public:
+      char checkpassword[10];  //A Temp Variable for Checking the password entered by the user
+      char password[15];   //Password set by the User
       char accname[100];     //sname + your no of user
       char checkusername[100];  //for updating the details of your account
 	  char filename[100];   //A Special Account-Name Created for Each User
@@ -36,12 +36,11 @@ class Customer
       { 
         cout<<sname;
         }
-        
       void getamount()     //To print the balance in the User's account and a quirky message;
       {
-           cout<<endl;
-           cout<<endl;
-        cout<<"YOUR BALANCE : ";
+        cout<<endl;
+        cout<<endl;
+        cout<<"YOUR BALANCE :";
         cout<<amount;
         cout<<endl;
         cout<<endl;
@@ -63,65 +62,70 @@ class Customer
             cout<<std::setw(25)<<"\"A Beginners guide to saving money : A great read! Only $2.99 on Amazon!\"-BBZ  "<<endl;;
             cout<<endl;
         }
+      }                           
+      void setamount(long double x)   //This function sets the amount to the argument passed
+      {
+           amount=x;
       }
       
-      // An overloaded function just to print the Balance of the user.
-      void getamount( int t)
+      void getamount( int t)          // An overloaded function just to print the Balance of the user.
       {
            cout<<amount;
            cout<<endl; 
            }
+      long double retamount()         // returns the value of amount
+      {
+           return amount;
+           }
     /*
     THE FOLLOWING FUNCTIONS INPUT THE PRIVATE VARIABLES OF THE CLASS CUSTOMER !
     */       
-      void addfname()      
+      void addfname()                // This is functions sets the First Name of the user by taking user-input
       {     
            cout<<"FIRST NAME : ";
            cin>>fname; 
            cout<<endl;
       }
-      void addsname() 
+      void addsname()               // This is functions sets the Second Name of the user by taking user-input
       {     
            cout<<"SECOND NAME : ";
            cin>>sname;
            cout<<endl;
       }
            
-      void addage() 
+      void addage()                 // This is functions sets the Age of the user by taking user-input
       { 
            age1:
            cout<<"AGE : ";
            cin>>age;
            if(age < 18 || age > 90)
            {
-                  cout<<"Please Enter your Correct Age! Minors shall not be permitted access!"<<endl<<endl;
+                  cout<<endl;
+                  cout<<"Please Enter your Correct Age!"<<endl<<endl;;
+                  if(age<18)
+                  cout<<"Minors shall not be permitted access!"<<endl<<endl;
+                  else
+                  cout<<"Senior Citizens shall not be permitted access!"<<endl<<endl;;
+                  
                   goto age1;
                   }
            cout<<endl;
       }
         
-      void addaddress()
+      void addaddress()            // This is functions sets the Address of the user by taking user-input
       {    
-           cout<<"YOUR ADDRESS : ";\
+           cout<<"YOUR ADDRESS : ";
            cin.ignore();
            cin.getline(address,'#'); 
            cout<<endl;
       }
-      void addaddress(int t)
-      {    
-           cout<<endl;
-           cout<<"ENTER YOUR NEW ADDRESS : ";\
-           cin.ignore();
-           cin.getline(address,'#'); 
-            cout<<endl;
-      }
-      void addamount()
+      void addamount()             // This is functions sets the Balance of the user by taking user-input
       {
            cout<<"ADD BALANCE : ";
            cin>>amount;
            cout<<endl;
       }
-      void addgender()
+      void addgender()             // This is functions sets the Gender of the user by taking user-input
       {
            c:
            cout<<"SEX(M/F) : ";
@@ -135,12 +139,12 @@ class Customer
                      goto c;
            }
       }
-      //This Function Sets the Password for the User
-      void setpassword();
       
-      //This Function Creates a Specialized USER-NAME for Each User!
-      void accno()  
+      void setpassword();          //This Function Sets the Password for the User
+      
+      void accno()                 //This Function Creates a Specialized USER-NAME for Each User!
       {
+         
          char noofacc_string[32];
          strcpy(accname,sname);
 		 sprintf(noofacc_string, "%d",::noofacc);
@@ -151,6 +155,7 @@ class Customer
 		 cout<<accname;
 		 
          strcpy(filename,strcat(accname,".dat"));
+         strcpy(checkfilename,accname);
          
 		 cout<<endl;
          cout<<endl;
@@ -162,21 +167,21 @@ class Customer
          x1=getch();
       }
       
-     void keep_number()
+     void keep_number()          //This keeps a track of the number of accounts in the bank!
      {
           ofstream fout;
           fout.open("Number_of_Accounts.txt");
           fout<<noofacc;
           }
-          
-     void read_number()
+      
+     void read_number()          //This keeps a track of the number of accounts in the bank!    
      {
           ifstream fin;
           fin.open("Number_of_Accounts.txt");
           fin>>noofacc;
           }
-     //overloading of functions to output different types of welcome messages
-     void welcome_heading(int t)
+     
+     void welcome_heading(int t)     //Overloading of functions to output different types of welcome messages
      {
           system("CLS"); 
           cout<<std::setw(63)<<"BBS- Bhuttle Banking Service(BETA VERSION)"<<endl;
@@ -189,9 +194,10 @@ class Customer
            cout<<"--------------------------------------------------------------------------------";
           }
 
-      //THIS IS THE MAIN FUNCTION FOR CREATING AN ACCOUNT! IT CALLS OTHER PRIMARY FUNCTIONS!
-      void addaccount()
+      
+      void addaccount()           //THIS IS THE MAIN FUNCTION FOR CREATING AN ACCOUNT! IT CALLS OTHER PRIMARY FUNCTIONS!
       {
+          
            read_number();                       //This keeps a track of the number of accounts in the bank!
            welcome_heading(2,3);                // This gives the introductory page of the Bank!
            addfname();                          // Accepts the First Name
@@ -201,12 +207,13 @@ class Customer
            addaddress();                        // Accepts their address
            addamount();                         // Accepts the Balance
            setpassword();                       // Sets the password for the user
-           accno();                             // Creates a unique account name for the user
+           accno();   
+                                                 // Creates a unique account name for the user
            keep_number();                       //This keeps a track of the number of accounts in the bank!
       }
-      
-     //Function for a Loading animation
-     void waiting(long double amt)
+
+     
+     void waiting(long double amt)    //Function for a Loading animation
      {
           cout<<endl;
           cout<<endl;
@@ -230,99 +237,36 @@ class Customer
                  cout<<endl;                   
      } 
      
-     //Function to remove balance to the users account!     
-     void removebalance()
-     {
-       long double amount_withdraw;
-       welcome_heading(5);
-       welcome_statement();
-       getamount();
-       cout<<endl;
-       cout<<" AMOUNT TO BE WITHDRAWN: ";
-       cin>>amount_withdraw;
-       waiting(amount_withdraw);
-       cout<<endl;
-       cout<<endl;
-       amount=amount-amount_withdraw;
-       Customer newcus;
-       ofstream bhuttle;
-       bhuttle.write((char *)&newcus,sizeof(newcus));
-       bhuttle.close();
-       cout<<" TRANSACTION SUCCESSFULL ! ";
-       cout<<endl;
-       cout<<endl;
-       cout<<" YOUR CURRENT BALANCE IS : ";
-       getamount(5);
-        }
-        
-     //This function is used to update the details of the customers account eg: Address
-       void updatedetails()
-     {
-       char change_address[300];
-       int one;
-       welcome_heading(4);
-       welcome_statement();
-       cout<<endl;
-       cout<<endl;
-       cout<<std::setw(10)<<" 1.CHANGE ADDRESS"<<endl;
-       cout<<endl;
-       cout<<endl;
-       cout<<" PRESS 1 TO CHANGE YOUR ADDRESS..."<<endl<<endl;;
-       cout<<" PRESS 0 FOR MAIN MENU..."<<endl;
-       cout<<endl;
-       cout<<endl;
-       cin>>one;
-       if(one == 1)
-       {
-              ofstream bhuttle;
-              addaddress(3);
-              bhuttle.write((char *)&newcus,sizeof(newcus));
-              bhuttle.close();
-              cout<<endl;
-              cout<<endl;
-              cout<<" YOUR ADDRESS HAS BEEN SUCCESSFULLY CHANGED! ";
-              cout<<endl;
-              
-              cout<<"\n\nPress any key to continue !";
-              char x2;
-              x2=getch();
-              displaymenu_for_myaccount(); 
-              
-              }
-       else
-       {
-               displaymenu_for_myaccount();   //Taking the user back to the main menu 
-
-          }
-      }
-     
-     //Function call to delete the users account!
-     void closeaccount()
+    
+     void closeaccount()    //Function call to delete the users account!
      {
            welcome_heading(5);
-           //Customer newcus;
            cout<<endl;
            cout<<endl;
-           cout<<" ENTER YOUR USERNAME : ";
+           cout<<"ENTER YOUR USERNAME : ";
            cin>>checkusername;
            strcpy(checkfilename,strcat(checkusername,".dat"));
            
+            cout<<endl;
+            cout<<endl;
+            
+           cout<<"DEAR MR/MRS ";
+           cout<<sname<<endl;
+           cout<<"BHUTTLE BANKING SERVICE SHALL MISS YOU !"<<endl;
            if( remove(checkfilename) != 0 )
            {
                cout<<endl;
                cout<<endl;
-           perror(" ERROR DELETING FILE !" );
+           perror("ERROR DELETING FILE !" );
            }
            else
-           puts(" ACCOUNT DELETED !");
+           puts("ACCOUNT DELETED !");
            
-           welcome_statement(5);
-           cout<<"BHUTTLE BANKING SERVICE SHALL MISS YOU !"<<endl;
            cout<<endl;
+           displaymenu();
           }
           
-    //THIS IS A FUNCTION WHICH DISPLAYS THE MENU SCREEN WHEN USER OPTS TO MODIFY DATA. THIS VALIDATES IF THE USER HAS A ACCOUNT 
-    void displaymenu_for_entering_myaccount()
+    void displaymenu_for_entering_myaccount()           //THIS IS A FUNCTION WHICH DISPLAYS THE MENU SCREEN WHEN USER OPTS TO MODIFY DATA. THIS VALIDATES IF THE USER HAS A ACCOUNT 
     {
     	   welcome_heading(3,5);
            cout<<"You Have Chosen To Update Your Account Details :- ";
@@ -333,8 +277,8 @@ class Customer
            cout<<endl;
            cout<<"PLEASE ENTER YOUR USERNAME : ";     
 	}
-	//FUNCTION TO DISPLAY THE WELCOME MESSAGE FOR USERS WITH THEIR NAMES USING FUNCTION OVERLOADING!
-	void welcome_statement()
+	
+	void welcome_statement()        //FUNCTION TO DISPLAY THE WELCOME MESSAGE FOR USERS WITH THEIR NAMES USING FUNCTION OVERLOADING!
 	{
     cout<<endl;
     cout<<endl;
@@ -343,10 +287,10 @@ class Customer
     cout<<"MR ";
     else 
     cout<<"MRS ";
-    fname[20] = toupper(fname[20]);
+    fname[20];
     cout<<fname;
     cout<<" ";
-    sname[20]=toupper(sname[20]);
+    sname[20];
     cout<<sname;
     cout<<",";
     cout<<endl;    
@@ -359,77 +303,163 @@ class Customer
     cout<<"MR ";
     else 
     cout<<"MRS ";
-    fname[20] = toupper(fname[20]);
+    
+    fname[20];
     cout<<fname;
     cout<<" ";
-    sname[20]=toupper(sname[20]);
+    sname[20];
     cout<<sname;
     cout<<",";
     cout<<endl;    
      }	
-	
-	//A FUNCTION TO DISPLAY MENU FOR MY ACCOUNT
-	void displaymenu_for_myaccount();   
+
+	void displaymenu_for_myaccount();    //A FUNCTION TO DISPLAY MENU FOR MY ACCOUNT
     
-              	
-    //THIS IS A FUNCTION WHICH DISPLAYS THE MENU SCREEN
-    void displaymenu();   
+    void displaymenu();                	 //THIS IS A FUNCTION WHICH DISPLAYS THE MENU SCREEN
            
 }newcus; //CLASS DECLARATION END
 
-  //Function for adding balance to the users account!
-     void addbalance()
+
+
+
+void addbalance()            //Function for adding balance to the users account!
      {
-       long double amount_added;
-       welcome_heading(5);
-       welcome_statement();
-       getamount();
+       long double amount_added,amt;
+       newcus.welcome_heading(5);
+       newcus.welcome_statement();
+       newcus.getamount();
        cout<<endl;
-       cout<<" AMOUNT TO BE ADDED: ";
+       cout<<"AMOUNT TO BE ADDED: ";
        cin>>amount_added;
-       waiting(amount_added);
+       newcus.waiting(amount_added);
        cout<<endl;
        cout<<endl;
-       amount=amount+amount_added;
-       Customer newcus;
-       ofstream bhuttle;
-       bhuttle.write((char *)&newcus,sizeof(newcus));
-       bhuttle.close();
-       cout<<" TRANSACTION SUCCESSFULL ! ";
-       cout<<endl;
-       cout<<endl;
-       cout<<" YOUR CURRENT BALANCE IS : ";
-       getamount(5);
-
-          }
-
-
-
-
-
- //Function to update the values of the users account 
-      void updateaccount()
-      { 
-        fstream bhuttle;
-        displaymenu_for_entering_myaccount();
-        cin>>newcus.checkusername;
-        strcpy(newcus.checkfilename,strcat(newcus.checkusername,".dat"));
-		bhuttle.open(newcus.checkfilename,ios::binary|ios::in|ios::out);
-
-        if (!bhuttle.is_open())
+       fstream bhuttle1;
+       bhuttle1.open("Temp.dat",ios::binary|ios::out);
+        if (!bhuttle1.is_open())
         {
 		   perror("Error while opening file ");
 		   cout<<endl;
 		   cout<<endl;
            cout<<"Please check the username you have entered!";
            cout<<"\n\nPress any key to continue !";
-           char x1;
-           cin>>x1;
+           getch();
+           addbalance();
+        }
+        
+       amt=newcus.retamount();
+       amt=amt+amount_added;
+       newcus.setamount(amt);
+       
+       bhuttle1.write((char *)&newcus,sizeof(newcus));
+       bhuttle1.close();
+       if( remove(newcus.checkfilename) != 0 )
+       perror("Error deleting file");
+       
+       int result = rename("Temp.dat",newcus.checkfilename);
+       if ( result != 0 )
+       perror( "Error renaming file" );
+       
+       cout<<" TRANSACTION SUCCESSFULL ! ";
+       cout<<endl;
+       cout<<endl;
+       cout<<" YOUR CURRENT BALANCE IS : ";
+       newcus.getamount(7);
+       cout<<"\n\nPress any key to continue !";
+       getch();
+          
+       }
+       
+ 
+     void removebalance()            //Function to remove balance from the users account!     
+     {
+       long double amount_withdraw,amt;
+       newcus.welcome_heading(5);
+       newcus.welcome_statement();
+       newcus.getamount();
+       b:
+       cout<<endl;
+       cout<<"AMOUNT TO BE WITHDRAWN: ";
+       cin>>amount_withdraw;
+       amt=newcus.retamount();
+       if(amt == 0)
+       {
+              cout<<endl;
+              cout<<"SIR, YOU HAVE 0 BALANCE.!"<<endl;
+              cout<<endl;
+              cout<<"PLEASE ADD BALANCE FIRST ";
+              cout<<"\n\nPress any key to continue !";
+              getch();
+       }
+              
+              
+       if(amount_withdraw > amt)
+       {
+                    cout<<endl;
+                    cout<<"THAT IS MORE THAN WHAT YOU HAVE, SIR!"<<endl;
+                    goto b; 
+                          }
+       
+       newcus.waiting(amount_withdraw);
+       cout<<endl;
+       cout<<endl;
+       fstream bhuttle1;
+       bhuttle1.open("Temp.dat",ios::binary|ios::out);
+        if (!bhuttle1.is_open())
+        {
+		   perror("Error while opening file ");
+		   cout<<endl;
+		   cout<<endl;
+           cout<<"Please check the username you have entered!";
+           cout<<"\n\nPress any key to continue !";
+           getch();
+           addbalance();
+        }
+        
+       amt=amt-amount_withdraw;
+       newcus.setamount(amt);
+       
+       bhuttle1.write((char *)&newcus,sizeof(newcus));
+       bhuttle1.close();
+       if( remove(newcus.checkfilename) != 0 )
+       perror("Error deleting file");
+       
+       int result = rename("Temp.dat",newcus.checkfilename);
+       if ( result != 0 )
+       perror( "Error renaming file" );
+       
+       cout<<" TRANSACTION SUCCESSFULL ! ";
+       cout<<endl;
+       cout<<endl;
+       cout<<" YOUR CURRENT BALANCE IS : ";
+       newcus.getamount(7);
+       cout<<"\n\nPress any key to continue !";
+       getch();
+          
+        }
+        
+void updateaccount()            //This is called when user chooses to update account. It is used to validate the users account.    
+      { 
+        ifstream bhuttle1;
+        newcus.displaymenu_for_entering_myaccount();
+        cin>>newcus.checkusername;
+        strcpy(newcus.checkfilename,strcat(newcus.checkusername,".dat"));
+		bhuttle1.open(newcus.checkfilename,ios::binary|ios::in);
+        if (!bhuttle1.is_open())
+        {
+		   perror("Error while opening file ");
+		   cout<<endl;
+		   cout<<endl;
+           cout<<"Please check the username you have entered!";
+           cout<<"\n\nPress any key to continue !";
+           getch();
            updateaccount();
         }
-        bhuttle.read((char *)&newcus,sizeof(newcus));
+        bhuttle1.read((char *)&newcus,sizeof(newcus));
+        bhuttle1.close();
         cout<<endl<<endl<<"PLEASE ENTER YOUR PASSWORD : ";
-         cin>>newcus.checkpassword;
+        cin>>newcus.checkpassword;
+        cout<<endl;
        
           if (strcmp(newcus.password,newcus.checkpassword) != 0)
            {
@@ -441,36 +471,12 @@ class Customer
 				cin>>input;
 				if(input=='Y'||input=='y')
 				newcus.addaccount();
+				
             }
            else
                newcus.displaymenu_for_myaccount();
+               getch();
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //outline definition of setpassword
 void Customer::setpassword()
@@ -508,12 +514,12 @@ void Customer::setpassword()
     cout<<"\"EVERY GREAT BUSINESS IS BUILT ON FRIENDSHIP\" - JC PENNEY";
     cout<<endl;
     cout<<endl;
-    cout<<std::setw(10)<<"1.ADD NEW ACCOUNT"<<endl<<"2.GO TO MY ACCOUNT"<<endl<<"3.CLOSE ACCOUNT"<<endl;
+    cout<<std::setw(10)<<"1.ADD NEW ACCOUNT"<<endl<<"2.GO TO MY ACCOUNT"<<endl<<"3.CLOSE ACCOUNT"<<endl<<"4.EXIT"<<endl;
     cout<<endl;
     y:
     cout<<"OPTION NO : ";
     cin>>var;
-    if (var != 1 && var != 2 && var != 3 )
+    if (var != 1 && var != 2 && var != 3&& var != 4 )
     {
             cout<<"PLEASE ENTER A CORRECT OPTION !"<<endl<<endl;
             goto y;
@@ -522,9 +528,9 @@ void Customer::setpassword()
     {
                case 1:{
                         fstream bhuttle;
-                        addaccount();
+                        newcus.addaccount();
 		                                      
-                        bhuttle.open(filename,ios::binary|ios::out);
+                        bhuttle.open(newcus.filename,ios::binary|ios::out);
                         bhuttle.write((char *)&newcus,sizeof(newcus));
                         bhuttle.close();
                         displaymenu();
@@ -538,6 +544,10 @@ void Customer::setpassword()
                          closeaccount();
                          break;
                       }
+               case 4: {
+                       exit(0);
+                       break;
+                    }
                default :{
                          cout<<"PLEASE ENTER A NUMBER ACCORDING TO THE CHOICES"<<endl<<endl;
                          break;
@@ -552,7 +562,7 @@ void Customer::setpassword()
     welcome_heading(3);
     welcome_statement();
     cout<<endl;
-    cout<<std::setw(10)<<"1.ADD BALANCE"<<endl<<"2.WITHDRAW BALANCE"<<endl<<"3.UPDATE ACCOUNT DETAILS"<<endl<<"4.BACK TO THE MAIN MENU"<<endl;
+    cout<<std::setw(10)<<"1.ADD BALANCE"<<endl<<"2.WITHDRAW BALANCE"<<endl<<"3.BACK TO THE MAIN MENU"<<endl;
     cout<<endl;
     cout<<"OPTION NO : ";
     cin>>var2;
@@ -560,17 +570,15 @@ void Customer::setpassword()
     {
                case 1:{
                          addbalance();
+                         displaymenu_for_myaccount();
                          break;
                      }
                case 2:{  
-                        removebalance(); 
+                         removebalance();
+                         displaymenu_for_myaccount(); 
                         break;
                        }
-              case 3:{ 
-                        updatedetails();
-                        break;
-                      }
-              case  4:{
+              case  3:{
                         displaymenu();
                         break;
                     }
@@ -586,12 +594,9 @@ void Customer::setpassword()
 
 int main()
 {
-  int idk;
   // CALLING THE DISPLAY MENU FUNCTION
   newcus.displaymenu();
   
-  
-     
-cin>>idk;
+getch(); 
 return 0;
 }

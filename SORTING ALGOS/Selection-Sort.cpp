@@ -16,21 +16,21 @@ void printarr(int arr[],int n)
 }
 void selectionsort(int arr[], int n)
 {
-     int i,j,temp,min;
+     int i,j,temp,min,temp2;
      for(i=0;i<n-1;i++)
      {
            min=i; 
              for (j=1+i;j<n;j++)
              {
-                 if(arr[j]<arr[min])
+                 if(arr[min]>arr[j])
                  min=j;
              }
-        if(min != i)
-        {
-          temp=arr[j];
-          arr[j]=arr[min];
-          arr[min]=temp;
-        }
+         if(min != i)
+         {
+          temp2=arr[min];
+          arr[min]=arr[i];
+          arr[i]=temp2;
+          }
      }
 }
 int main()
@@ -43,7 +43,7 @@ int main()
     cout<<endl;
     
     //sorting the array
-    selectionsort(arr,11);
+    selectionsort(arr,10);
     
     //calling the print array function again!
     cout<<"The Sorted Array is : ";

@@ -7,29 +7,27 @@ void BinarySearch(int arr[], int ub, int key)
 
        // To start, find the subscript of the middle position.
        pos = -1;
-
-       while(lb <= ub)
+       mid = (lb+ub) / 2; 
+       while((arr[mid] != key) && (lb <= ub))
        {
-              mid = (lb+ub) / 2; 
               
-              if(arr[mid] == key)
-              {
-                          pos=mid;
-                          cout<<"The element exists at position "<<pos+1<<endl; 
-              }
                           
               if (arr[mid] > key)               // If the number is > key, ..
               {                                                       // decrease position by one.
                     ub = mid - 1;    
               }                                                      
-              else                                                
+              else                                               
               {                                                        // Else, increase position by one.
                    lb= mid + 1;     
               }
-              
+       mid = (lb+ub) / 2;   
        }
-       if (lb>ub)
-       cout<<"Sorry! The number does not exist in the array. "<<endl;
+      if (lb <= ub)
+      {
+            cout<< "The number was found at position "<<mid+1<<endl<<endl;              
+       }      
+       else
+             cout<< "Sorry, the number is not in this array."<<endl;
       
 }
 int main()
