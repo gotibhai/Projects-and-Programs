@@ -263,6 +263,7 @@ class Customer
            puts("ACCOUNT DELETED !");
            
            cout<<endl;
+           getch();
            displaymenu();
           }
           
