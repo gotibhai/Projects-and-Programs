@@ -42,11 +42,11 @@ void modify()
      ifstream fin;
      ofstream fout;
      fin.open("Student1.Dat",ios::binary);
-     fin.read((char*)&stu1,int sizeof(char));
+     fin.read((char*)&stu1,sizeof(stu1));
      system("cls");
      cout<<"What is the new Roll No ?\n";
      cin>>stu1.roll_no;
-     fout.write((char*)&stu1,int sizeof(char));
+     fout.write((char*)&stu1,sizeof(stu1));
      cout<<"Modified record Successfully !\n\n";
      
      }   
@@ -60,7 +60,7 @@ int main()
     stu1.getadm_no();
     stu1.getname();
     stu1.getgender();
-    fout.write((char*)&stu1,int sizeof(char));
+    fout.write((char*)&stu1,sizeof(stu1));
     cout<<"Written to File Successfully !\n\n";
     
     fout.close();
